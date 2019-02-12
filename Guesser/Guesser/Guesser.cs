@@ -37,19 +37,18 @@ namespace Guesser {
 
         private int ReadAnswer() {
             Console.WriteLine("Guess the number,{0}!", _userName);
-            var answer = Console.ReadLine();
-            if (answer == StopWord) {
-                Console.WriteLine(ExitMessage, _userName, _secretNumber);
-                Environment.Exit(0);
-            }
-
             int answerNumber = _secretNumber;
-            try {
-                answerNumber = int.Parse(answer);
-            }
-            catch (Exception) {
-                Console.WriteLine("You must enter number, foolish kebab!");
-                ReadAnswer();
+            bool isCorrectInput = false;
+            while (!isCorrectInput) {
+                var answer = Console.ReadLine();
+                if (answer == StopWord) {
+                    Console.WriteLine(ExitMessage, _userName, _secretNumber);
+                    Environment.Exit(0);
+                }
+
+                isCorrectInput = int.TryParse(answer, out answerNumber);
+                if (!isCorrectInput)
+                    Console.WriteLine("You must enter number, foolish kebab!");
             }
 
             return answerNumber;
