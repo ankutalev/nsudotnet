@@ -3,12 +3,12 @@
 namespace Scheduler {
     class Scheduler {
         private DateTime _inputData;
-        private String _inputMessage = "Enter date, please!";
+        private const String InputMessage = "Enter date, please!";
 
         public void ReadDate() {
             bool isCorrectDate = false;
             while (!isCorrectDate) {
-                Console.WriteLine(_inputMessage);
+                Console.WriteLine(InputMessage);
                 var userInput = Console.ReadLine();
                 isCorrectDate = DateTime.TryParse(userInput, out _inputData);
             }
