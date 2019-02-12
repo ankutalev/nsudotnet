@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Guesser {
-    class Guesser {
+    public class  Guesser {
         private readonly Random _generator = new Random();
         private const int UpperBound = 51;
         private const int LowerBound = 0;
