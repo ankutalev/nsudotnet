@@ -19,7 +19,7 @@ namespace Scheduler {
             Console.WriteLine("Input data {0}", _inputData);
             Console.ResetColor();
             var knowWeekDay = new DateTime(2019, 02, 11); // surely first day of the week
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < Enum.GetNames(typeof(DayOfWeek)).Length; i++) {
                 Console.Write("{0:ddd}  ", knowWeekDay);
                 knowWeekDay = knowWeekDay.AddDays(1);
             }
