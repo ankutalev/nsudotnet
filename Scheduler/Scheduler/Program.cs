@@ -4,10 +4,10 @@ using System.Globalization;
 namespace Scheduler {
     class Scheduler {
         private DateTime _inputData;
-        private const String InputMessage = "Enter date, please!";
+        private const string InputMessage = "Enter date, please!";
 
         public void ReadDate() {
-            bool isCorrectDate = false;
+            var isCorrectDate = false;
             while (!isCorrectDate) {
                 Console.WriteLine(InputMessage);
                 var userInput = Console.ReadLine();
@@ -27,7 +27,7 @@ namespace Scheduler {
             Console.WriteLine();            
             var monthBeginning = new DateTime(_inputData.Year, _inputData.Month, 1);
             var workDays = 0;
-            for (int i = 0; i < ((int) monthBeginning.DayOfWeek + 6) % 7; i++) {
+            for (var i = 0; i < ((int) monthBeginning.DayOfWeek + 6) % 7; i++) {
                 Console.Write("    ");
             }
             while (monthBeginning.Month == _inputData.Month) {
