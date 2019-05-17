@@ -115,10 +115,17 @@ namespace VSisyarpe {
             while (true) {
                 var key = Console.ReadKey(true);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("*");
-                if (key.Key == ConsoleKey.Enter)
-                    break;
-                sb.Append(key.KeyChar);
+                if (key.Key == ConsoleKey.Backspace) {
+                    Console.Write("\b \b");
+                    if (sb.Length>0)
+                        sb.Remove(sb.Length-1, 1);
+                }
+                else {
+                    Console.Write("*");
+                    if (key.Key == ConsoleKey.Enter)
+                        break;
+                    sb.Append(key.KeyChar);
+                }
             }
 
             Console.WriteLine();
