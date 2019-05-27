@@ -1,0 +1,59 @@
+@page
+@model rabotyagiszavoda.Pages.WorkersPage
+
+@{
+    ViewData["Title"] = "Rabotyagi s zavoda";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    <a asp-page="./CreateWorker">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Worker[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Worker[0].Projects.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Worker[0].Projects)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Worker) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.Projects != null) {
+                    @Html.DisplayFor(modelItem => item.Projects.Count)
+                }
+                else {
+                    @Html.Display("0")
+                }
+
+            </td>
+            <td>
+                @if (item.Projects != null && item.Projects.Count!=0) {
+                    <select>
+                        @foreach (var proj in item.Projects) {
+                            <option> @proj.Title | Cost: @proj.Cost </option>
+                        }
+                    </select>
+                }
+            </td>
+            <td>
+                <a asp-page="./EditWorker" asp-route-id="@item.WorkerId">Edit</a> |
+                <a asp-page="./AddProject" asp-route-id=@item.WorkerId>Add project</a> |
+                <a asp-page="./DeleteWorker" asp-route-id="@item.WorkerId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
