@@ -9,6 +9,8 @@ namespace rabotyagiszavoda.Model
         
         public int? Age { get; set; }
         
+        public int? IQ { get; set; }
+        
         public ICollection<Projects> Projects { get; set; }
     }
 }

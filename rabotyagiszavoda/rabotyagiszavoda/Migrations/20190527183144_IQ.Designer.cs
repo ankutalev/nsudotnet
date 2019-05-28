@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using rabotyagiszavoda;
@@ -9,9 +10,10 @@ using rabotyagiszavoda;
 namespace rabotyagiszavoda.Migrations
 {
     [DbContext(typeof(WorkersContext))]
-    partial class WorkersContextModelSnapshot : ModelSnapshot
+    [Migration("20190527183144_IQ")]
+    partial class IQ
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,6 @@ namespace rabotyagiszavoda.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("worker_id");
 
-                    b.Property<int?>("Age");
                     b.Property<int?>("IQ");
 
                     b.Property<string>("Name")
