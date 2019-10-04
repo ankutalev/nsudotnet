@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,13 +9,9 @@ using Attributes;
 namespace Container {
     public class Container {
         private const string LogicModule = "BooknoteLogic";
-        private readonly List<Type> _rootElements = new List<Type>();
+        private readonly HashSet<Type> _foundedByResolving = new HashSet<Type>();
         private readonly Dictionary<Type,object> _alreadyCreated = new Dictionary<Type, object>();
         private List<Type> _markedTypes;
-        public Container() 
-        {
-                   
-        }
 
         public T Resolve<T>()
         {
@@ -23,7 +20,6 @@ namespace Container {
             if (_alreadyCreated.TryGetValue(type, out var obj))
                 return (T)obj;
             obj = ConstructByType(type);
-            _alreadyCreated[type] = obj;
             return (T)obj;
         }
 
@@ -38,13 +34,70 @@ namespace Container {
             }
             var ctor =  GetConstructor(t);
             var ctorParams = ctor.GetParameters();
-            return ctorParams.Length == 0 ? ctor.Invoke(null) 
-                : ConstructByResolvingDependencies(ctor.GetParameters());
+            
+            object obj;
+            if (ctorParams.Length == 0)
+            {
+                obj = ctor.Invoke(null);
+                _alreadyCreated[t] = obj;
+                return obj;
+            }
+            _foundedByResolving.Add(t);
+            ResolvingDependencies(ctorParams.ToList());
+            _foundedByResolving.Clear();
+            var parameters = from objects in _alreadyCreated
+                join param in ctorParams on objects.Key equals param.ParameterType
+                select objects.Value;
+            obj = ctor.Invoke(parameters.ToArray());
+            _alreadyCreated[t] = obj;
+            return obj;
         }
 
-        private object ConstructByResolvingDependencies(ParameterInfo[] dependencies)
+        private void ResolvingDependencies(List<ParameterInfo> dependencies)
         {
-            throw new NotImplementedException("Not today");
+            
+            dependencies.ForEach( dependency=>
+            {
+                if (_foundedByResolving.Contains(dependency.ParameterType))
+                {
+                    _foundedByResolving.Clear();
+                    throw new ArgumentException("Found circular dependency");
+                }
+
+                if (dependency.ParameterType.IsGenericType && dependency.ParameterType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    ConstructGenericList(dependency.ParameterType);
+                }
+                else
+                {
+                    ConstructByType(dependency.ParameterType);
+                }
+            });
+        }
+
+        private void ConstructGenericList(Type genericType)
+        {
+            var instance = (IList)Activator.CreateInstance(genericType);
+            var parentType = genericType.GenericTypeArguments[0];
+            var childrenTypes = (from type in _markedTypes
+                where
+                    type.BaseType == parentType
+                select type).ToList();
+            
+            childrenTypes.ForEach(childType =>
+            {
+                if (_alreadyCreated.TryGetValue(childType, out var child))
+                {
+                    instance.Add(child);
+                }
+                else
+                {
+                    var obj = ConstructByType(childType);
+                    instance.Add(obj);
+                    _alreadyCreated[childType] = obj;
+                }
+            });
+            _alreadyCreated[genericType] = instance;
         }
         
         private ConstructorInfo GetConstructor(Type type)

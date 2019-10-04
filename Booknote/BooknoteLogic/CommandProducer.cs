@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Attributes;
 
 namespace BooknoteLogic
 {
+    [ContainerElement]
     public class CommandProducer
     {
         private readonly Dictionary<Type,BaseCommand> _commands = new Dictionary<Type, BaseCommand>();

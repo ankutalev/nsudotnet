@@ -1,7 +1,9 @@
 using System;
+using Attributes;
 
 namespace BooknoteLogic
 {
+    [ContainerElement] 
     public class CommandProcessor
     {
         private readonly CommandProducer _commandProducer;
