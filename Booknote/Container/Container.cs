@@ -16,7 +16,6 @@ namespace Container {
         public T Resolve<T>()
         {
             var type = typeof(T);
-            Console.WriteLine(type);
             if (_alreadyCreated.TryGetValue(type, out var obj))
                 return (T)obj;
             obj = ConstructByType(type);

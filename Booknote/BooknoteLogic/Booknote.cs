@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Attributes;
 
 namespace BooknoteLogic
@@ -9,6 +10,16 @@ namespace BooknoteLogic
         public void Read()
         {
             Console.WriteLine("Read in booknote!");
+        }
+
+        public void Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BooknoteRecord> GetAllRecords()
+        {
+            throw new NotImplementedException();
         }
     }
 }
