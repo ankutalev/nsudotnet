@@ -24,6 +24,9 @@ namespace Container {
 
         private object ConstructByType(Type t)
         {
+            if (_alreadyCreated.TryGetValue(t, out var o))
+                return o;
+            
             if (_markedTypes == null)
             {
                 var logicAssembly = Assembly.Load(LogicModule);
@@ -44,6 +47,8 @@ namespace Container {
             _foundedByResolving.Add(t);
             ResolvingDependencies(ctorParams.ToList());
             _foundedByResolving.Clear();
+            
+            // or select where Select.ctorParams=>param.ParameterType,contains(object key?);
             var parameters = from objects in _alreadyCreated
                 join param in ctorParams on objects.Key equals param.ParameterType
                 select objects.Value;

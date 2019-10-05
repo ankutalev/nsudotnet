@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Attributes;
 
 namespace BooknoteLogic
@@ -29,6 +30,12 @@ namespace BooknoteLogic
                 try
                 {
                     _commandProducer.GetCommand(name).Execute();
+                    Console.WriteLine();
+                }
+                catch (KeyNotFoundException)
+                {
+                    Console.WriteLine("Command doesnt exist!");
+                    Console.WriteLine();
                 }
                 catch (Exception e)
                 {
