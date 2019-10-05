@@ -1,0 +1,49 @@
+@page
+@model rabotyagiszavoda.Pages.ProjectsPage
+
+@{
+    ViewData["Title"] = " Projects";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<p>
+    <a asp-page="./CreateProject">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Projects[0].Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Projects[0].Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Projects[0].Worker)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Projects) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Worker.Name)
+            </td>
+            <td>
+                <a asp-page="./EditProject" asp-route-id="@item.ProjId">Edit</a> |
+                @if (item.WorkerId != null) 
+                    {<a asp-page="./UnlinkProject" asp-route-id=@item.ProjId>Unlink worker</a>}  |
+                <a asp-page="./DeleteProject" asp-route-id="@item.ProjId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

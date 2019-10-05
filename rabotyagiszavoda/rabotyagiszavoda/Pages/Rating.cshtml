@@ -1,0 +1,33 @@
+@page
+@model rabotyagiszavoda.Pages.RatingModel
+
+@{
+	ViewData["Title"] = "Rating";
+}
+
+<h2>Rating</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.WorkersRatings[0].Worker.Name)
+			</th>
+			<th>
+				Total award
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.WorkersRatings) {
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Worker.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TotalCost)
+				</td>
+			</tr>
+			}
+	</tbody>
+</table>
