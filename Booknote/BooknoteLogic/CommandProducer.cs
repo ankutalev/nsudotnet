@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Attributes;
+using BooknoteLogic.Commands;
 
 namespace BooknoteLogic
 {
@@ -21,7 +21,7 @@ namespace BooknoteLogic
 
         public BaseCommand GetCommand(string type)
         {
-            return _commands[type ?? throw new ArgumentException("No such command!")];
+            return _commands[type];
         }
     }
 }
