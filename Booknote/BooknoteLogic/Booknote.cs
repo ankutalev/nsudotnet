@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using Attributes;
+using BooknoteLogic.Notes;
 using Newtonsoft.Json;
 
 namespace BooknoteLogic
@@ -10,7 +11,7 @@ namespace BooknoteLogic
     [ContainerElement]
     public class Booknote
     {
-        private List<BooknoteRecord> _records = new List<BooknoteRecord>();
+        private List<IBooknoteRecord> _records = new List<IBooknoteRecord>();
 
         public void Deserialize(string path)
         {
@@ -21,7 +22,7 @@ namespace BooknoteLogic
                     var settings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
                     //bad practise
                     var serialized = tw.ReadToEnd();
-                    var deserializedList = JsonConvert.DeserializeObject<List<BooknoteRecord>>(serialized, settings);
+                    var deserializedList = JsonConvert.DeserializeObject<List<IBooknoteRecord>>(serialized, settings);
                     _records = deserializedList;
                 }
             }
@@ -47,12 +48,12 @@ namespace BooknoteLogic
                 Console.WriteLine("Error during deserialization happened. Check filepath and file for validity");
             }
         }
-        public List<BooknoteRecord> GetAllRecords()
+        public List<IBooknoteRecord> GetAllRecords()
         {
             return _records;
         }
 
-        public void Add(BooknoteRecord booknoteRecord)
+        public void Add(IBooknoteRecord booknoteRecord)
         {
             _records.Add(booknoteRecord);
         }
@@ -69,7 +70,7 @@ namespace BooknoteLogic
             }
         }
 
-        public BooknoteRecord Get(int i)
+        public IBooknoteRecord Get(int i)
         {
             return _records[i];
         }
@@ -79,9 +80,9 @@ namespace BooknoteLogic
             _records.Clear();
         }
 
-        public Dictionary<int, BooknoteRecord> Search(string pattern)
+        public Dictionary<int, IBooknoteRecord> Search(string pattern)
         {
-            var matched = new Dictionary<int,BooknoteRecord>();
+            var matched = new Dictionary<int,IBooknoteRecord>();
             for (var index = 0; index < _records.Count; index++)
             {
                 var record = _records[index];
