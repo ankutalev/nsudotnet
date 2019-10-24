@@ -6,20 +6,22 @@ using BooknoteLogic.Notes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class AddRecordCommand : BaseCommand
+    public class AddRecordCommand : IBaseCommand
     {
+        private readonly Booknote _booknote;
         private readonly Dictionary<string, IBooknoteRecord> _records =  new Dictionary<string, IBooknoteRecord>();
-        public AddRecordCommand(Booknote booknote, List<IBooknoteRecord> recordTypes) : base(booknote)
+        public AddRecordCommand(Booknote booknote, List<IBooknoteRecord> recordTypes)
         {
+            _booknote = booknote;
             recordTypes.ForEach(record=>_records.Add(record.GetRecordName(), record));
         }
 
-        public override string ToString()
+        public string NameToString()
         {
             return "AddRecord";
         }
 
-        public override void Execute()
+        public void Execute()
         {
             Console.WriteLine("Available records type :");
             foreach (var recordKey in _records.Keys)
@@ -31,7 +33,7 @@ namespace BooknoteLogic.Commands
             {
                 var record = _records[Console.ReadLine()];
                 record.FillFields();
-                Bn.Add(record);
+                _booknote.Add(record);
             }
             catch (KeyNotFoundException)
             {

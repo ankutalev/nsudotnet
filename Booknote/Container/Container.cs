@@ -79,8 +79,7 @@ namespace Container
             var instance = (IList) Activator.CreateInstance(genericType);
             var parentType = genericType.GenericTypeArguments[0];
             var childrenTypes = (from type in _markedTypes
-                where
-                    type.BaseType == parentType ||  type.GetInterfaces().Contains(parentType)
+                where type.GetInterfaces().Contains(parentType)
                 select type).ToList();
 
             childrenTypes.ForEach(childType =>

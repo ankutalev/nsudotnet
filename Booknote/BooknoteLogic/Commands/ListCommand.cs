@@ -4,15 +4,23 @@ using Attributes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class ListCommand : BaseCommand
+    public class ListCommand : IBaseCommand
     {
-        public ListCommand(Booknote booknote) : base(booknote) { }
+        private readonly Booknote _booknote;
 
-        public override string ToString() { return "List"; }
-
-        public override void Execute()
+        public ListCommand(Booknote booknote)
         {
-            var records = Bn.GetAllRecords();
+            _booknote = booknote;
+        }
+
+        public string NameToString()
+        {
+            return "List";
+        }
+
+        public void Execute()
+        {
+            var records = _booknote.GetAllRecords();
             if (records.Count == 0)
             {
                 Console.WriteLine("BookNote empty!");
@@ -22,7 +30,7 @@ namespace BooknoteLogic.Commands
             for (var index = 0; index < records.Count; index++)
             {
                 var record = records[index];
-                Console.WriteLine("{0}: {1} ",index, record);
+                Console.WriteLine("{0}: {1} ", index, record);
             }
         }
     }

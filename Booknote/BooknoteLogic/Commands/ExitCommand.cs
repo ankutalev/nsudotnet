@@ -5,14 +5,21 @@ using Attributes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class ExitCommand : BaseCommand
+    public class ExitCommand : IBaseCommand
     {
-        private BaseCommand sc_;
+        private readonly IBaseCommand sc_;
 
-        public ExitCommand(Booknote booknote, SerializeCommand sc) : base(booknote) { sc_ = sc; }
+        public ExitCommand(SerializeCommand sc)
+        {
+            sc_ = sc;
+        }
 
-        public override string ToString() { return "Exit"; }
-        public override void Execute()
+        public string NameToString()
+        {
+            return "Exit";
+        }
+
+        public void Execute()
         {
             var answers = new[] {"y", "n"};
 

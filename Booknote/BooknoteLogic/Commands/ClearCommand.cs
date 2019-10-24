@@ -3,15 +3,23 @@ using Attributes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class ClearCommand : BaseCommand
+    public class ClearCommand : IBaseCommand
     {
-        public ClearCommand(Booknote booknote) : base(booknote) { }
+        private readonly Booknote _booknote;
 
-        public override string ToString() { return "Clear"; }
-
-        public override void Execute()
+        public ClearCommand(Booknote booknote)
         {
-            Bn.Clear();
+            _booknote = booknote;
+        }
+
+        public void Execute()
+        {
+            _booknote.Clear();
+        }
+
+        public string NameToString()
+        {
+            return "Clear";
         }
     }
 }

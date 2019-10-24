@@ -4,24 +4,27 @@ using Attributes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class SerializeCommand : BaseCommand
+    public class SerializeCommand : IBaseCommand
     {
-        public SerializeCommand(Booknote booknote) : base(booknote)
+        private readonly Booknote _booknote;
+
+        public SerializeCommand(Booknote booknote)
         {
+            _booknote = booknote;
         }
 
-        public override string ToString()
+        public string NameToString()
         {
             return "Serialize";
         }
 
-        public override void Execute()
+        public void Execute()
         {
             Console.WriteLine("Enter filename to serialize!");
             var fileName = Console.ReadLine();
             try
             {
-                Bn.Serialize(fileName);
+                _booknote.Serialize(fileName);
             }
             catch (Exception e)
             {

@@ -4,25 +4,33 @@ using Attributes;
 namespace BooknoteLogic.Commands
 {
     [ContainerElement]
-    public class GetCommand : BaseCommand
+    public class GetCommand : IBaseCommand
     {
-        public GetCommand(Booknote booknote) : base(booknote) { }
+        private readonly Booknote _booknote;
 
-        public override string ToString() { return "Get"; }
-        public override void Execute()
+        public GetCommand(Booknote booknote)
+        {
+            _booknote = booknote;
+        }
+
+        public string NameToString()
+        {
+            return "Get";
+        }
+
+        public void Execute()
         {
             Console.WriteLine("Which record show? Type index");
             var index = Console.ReadLine();
             try
             {
                 var i = int.Parse(index);
-                Console.WriteLine(Bn.Get(i));
+                Console.WriteLine(_booknote.Get(i));
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Console.WriteLine("Invalid index given!");
             }
-            
         }
     }
 }
