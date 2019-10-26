@@ -10,7 +10,12 @@ namespace BooknoteLogic.Notes
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         //for json.net
         public string Data;
-        
+
+        public SimpleBooknoteRecord(string data)
+        {
+            Data = data;
+        }
+
         public override string ToString()
         {
             return Data;
@@ -19,17 +24,6 @@ namespace BooknoteLogic.Notes
         public bool Match(string searchPattern)
         {
             return Data.Contains(searchPattern);
-        }
-
-        public void FillFields()
-        {
-            Console.WriteLine("Type something!");
-            Data = Console.ReadLine();
-        }
-
-        public string GetRecordName()
-        {
-            return "SimpleRecord";
         }
     }
 }

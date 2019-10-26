@@ -1,4 +1,3 @@
-using System;
 using Attributes;
 
 namespace BooknoteLogic.Notes
@@ -14,7 +13,13 @@ namespace BooknoteLogic.Notes
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public string Phone;
-        
+
+        public StudentRecord(string name, string phone)
+        {
+            Name = name;
+            Phone = phone;
+        }
+
         public override string ToString()
         {
             return "Student name :" + Name + " It's' phone: " + Phone;
@@ -23,19 +28,6 @@ namespace BooknoteLogic.Notes
         public bool Match(string searchPattern)
         {
             return Name.Contains(searchPattern) || Phone.Contains(searchPattern);
-        }
-
-        public void FillFields()
-        {
-            Console.WriteLine("Write name!");
-            Name = Console.ReadLine();
-            Console.WriteLine("Write phone!");
-            Phone = Console.ReadLine();
-        }
-
-        public string GetRecordName()
-        {
-            return "StudentRecord";
         }
     }
 }

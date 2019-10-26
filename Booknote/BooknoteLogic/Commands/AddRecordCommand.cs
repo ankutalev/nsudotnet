@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Attributes;
-using BooknoteLogic.Notes;
+using BooknoteLogic.Factories;
 
 namespace BooknoteLogic.Commands
 {
@@ -9,11 +9,11 @@ namespace BooknoteLogic.Commands
     public class AddRecordCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
-        private readonly Dictionary<string, IBooknoteRecord> _records =  new Dictionary<string, IBooknoteRecord>();
-        public AddRecordCommand(Booknote booknote, List<IBooknoteRecord> recordTypes)
+        private readonly Dictionary<string, IBooknoteRecordFactory> _records =  new Dictionary<string, IBooknoteRecordFactory>();
+        public AddRecordCommand(Booknote booknote, List<IBooknoteRecordFactory> recordTypes)
         {
             _booknote = booknote;
-            recordTypes.ForEach(record=>_records.Add(record.GetRecordName(), record));
+            recordTypes.ForEach(record=>_records.Add(record.GeCreatorName(), record));
         }
 
         public string NameToString()
@@ -31,9 +31,8 @@ namespace BooknoteLogic.Commands
             Console.WriteLine("Enter record type to add it to notebook");
             try
             {
-                var record = _records[Console.ReadLine()];
-                record.FillFields();
-                _booknote.Add(record);
+                var creator = _records[Console.ReadLine()];
+                _booknote.Add(creator.CreateRecord());
             }
             catch (KeyNotFoundException)
             {

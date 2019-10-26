@@ -18,7 +18,14 @@ namespace BooknoteLogic.Notes
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public string SpecialSigns;
-        
+
+        public WantedRecord(string name, string lastName, string specialSigns)
+        {
+            Name = name;
+            LastName = lastName;
+            SpecialSigns = specialSigns;
+        }
+
         public override string ToString()
         {
             return $"Wanted {Name}  {LastName}. Special signs : {SpecialSigns}"; 
@@ -27,21 +34,6 @@ namespace BooknoteLogic.Notes
         public bool Match(string searchPattern)
         {
             return Name.Contains(searchPattern) || LastName.Contains(searchPattern) || SpecialSigns.Contains(searchPattern);
-        }
-
-        public void FillFields()
-        {
-            Console.WriteLine("Write name!");
-            Name = Console.ReadLine();
-            Console.WriteLine("Write Lastname!");
-            LastName = Console.ReadLine();
-            Console.WriteLine("Special signs??");
-            SpecialSigns = Console.ReadLine();
-        }
-
-        public string GetRecordName()
-        {
-            return "WantedRecord";
         }
     }
 }
