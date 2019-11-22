@@ -1,23 +1,19 @@
-using System;
-using Attributes;
-
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class DeserializeCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
-        public DeserializeCommand(Booknote booknote)
+        private readonly string _path;
+
+        public DeserializeCommand(Booknote booknote, string path)
         {
             _booknote = booknote;
+            _path = path;
         }
 
-        public string NameToString() { return "Deserialize"; }
         public void Execute()
         {
-            Console.WriteLine("Enter path to save file");
-            var path = Console.ReadLine();
-            _booknote.Deserialize(path);
+            _booknote.Deserialize(_path);
         }
     }
 }

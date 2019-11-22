@@ -1,35 +1,29 @@
 using System;
-using Attributes;
+using System.Collections.Generic;
+using BooknoteLogic.Notes;
 
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class ListCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
+        private readonly List<IBooknoteRecord> _records;
 
-        public ListCommand(Booknote booknote)
+        public ListCommand(List<IBooknoteRecord> records)
         {
-            _booknote = booknote;
-        }
-
-        public string NameToString()
-        {
-            return "List";
+            _records = records;
         }
 
         public void Execute()
         {
-            var records = _booknote.GetAllRecords();
-            if (records.Count == 0)
+            if (_records.Count == 0)
             {
                 Console.WriteLine("BookNote empty!");
                 return;
             }
 
-            for (var index = 0; index < records.Count; index++)
+            for (var index = 0; index < _records.Count; index++)
             {
-                var record = records[index];
+                var record = _records[index];
                 Console.WriteLine("{0}: {1} ", index, record);
             }
         }

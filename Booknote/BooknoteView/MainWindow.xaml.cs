@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BooknoteLogic;
+using BooknoteView.CommandsView;
+using Microsoft.Win32;
 
 namespace BooknoteView
 {
@@ -37,8 +40,19 @@ namespace BooknoteView
             foreach (var command in enumerable)
             {
                 var commandButton = new Button {Content = command};
+                commandButton.Click += onClick;
                 Commands.Children.Add(commandButton);
             }
         }
+
+        private void onClick(object sender, RoutedEventArgs args)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if(openFileDialog.ShowDialog() == true)
+            {
+                var Text = File.ReadAllText(openFileDialog.FileName);
+            }
+        }
+
     }
 }

@@ -1,8 +1,7 @@
 namespace BooknoteLogic.Commands
 {
-    public  interface IBaseCommand
+    public interface IBaseCommand
     {
         void Execute();
-        string NameToString();
     }
 }

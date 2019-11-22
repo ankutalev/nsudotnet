@@ -1,43 +1,27 @@
 using System;
-using System.Collections.Generic;
-using Attributes;
-using BooknoteLogic.Factories;
+using BooknoteLogic.Notes;
 
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class AddRecordCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
-        private readonly Dictionary<string, IBooknoteRecordFactory> _records =  new Dictionary<string, IBooknoteRecordFactory>();
-        public AddRecordCommand(Booknote booknote, List<IBooknoteRecordFactory> recordTypes)
+        private readonly IBooknoteRecord _record;
+
+        public AddRecordCommand(Booknote booknote, IBooknoteRecord record)
         {
             _booknote = booknote;
-            recordTypes.ForEach(record=>_records.Add(record.GeCreatorName(), record));
-        }
-
-        public string NameToString()
-        {
-            return "AddRecord";
+            _record = record;
         }
 
         public void Execute()
         {
-            Console.WriteLine("Available records type :");
-            foreach (var recordKey in _records.Keys)
+            if (_record is null)
             {
-                Console.WriteLine(recordKey);
+                Console.WriteLine("Invalid Record type!");
+                return;
             }
-            Console.WriteLine("Enter record type to add it to notebook");
-            try
-            {
-                var creator = _records[Console.ReadLine()];
-                _booknote.Add(creator.CreateRecord());
-            }
-            catch (KeyNotFoundException)
-            {
-                Console.WriteLine("Unknown booknote type!");
-            }
+            _booknote.Add(_record);
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Json;
 using Attributes;
 using BooknoteLogic.Notes;
 using Newtonsoft.Json;

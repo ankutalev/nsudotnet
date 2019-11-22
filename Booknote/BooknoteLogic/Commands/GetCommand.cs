@@ -1,30 +1,23 @@
 using System;
-using Attributes;
 
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class GetCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
+        private readonly string _index;
 
-        public GetCommand(Booknote booknote)
+        public GetCommand(Booknote booknote, string index)
         {
             _booknote = booknote;
-        }
-
-        public string NameToString()
-        {
-            return "Get";
+            _index = index;
         }
 
         public void Execute()
         {
-            Console.WriteLine("Which record show? Type index");
-            var index = Console.ReadLine();
             try
             {
-                var i = int.Parse(index);
+                var i = int.Parse(_index);
                 Console.WriteLine(_booknote.Get(i));
             }
             catch (Exception)

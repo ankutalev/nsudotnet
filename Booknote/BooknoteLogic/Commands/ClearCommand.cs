@@ -1,8 +1,5 @@
-using Attributes;
-
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class ClearCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
@@ -15,11 +12,6 @@ namespace BooknoteLogic.Commands
         public void Execute()
         {
             _booknote.Clear();
-        }
-
-        public string NameToString()
-        {
-            return "Clear";
         }
     }
 }

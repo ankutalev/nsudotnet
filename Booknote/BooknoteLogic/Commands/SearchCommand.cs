@@ -1,30 +1,27 @@
 using System;
-using Attributes;
+using System.Collections.Generic;
+using BooknoteLogic.Notes;
 
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class SearchCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
+        private readonly string _pattern;
+         public Dictionary<int, IBooknoteRecord> Matched { get; private set; }
 
-        public SearchCommand(Booknote booknote)
+        public SearchCommand(Booknote booknote, string pattern)
         {
             _booknote = booknote;
+            _pattern = pattern;
         }
-
-        public string NameToString()
-        {
-            return "Search";
-        }
+        
 
         public void Execute()
         {
-            Console.WriteLine("Enter search pattern:");
-            var pattern = Console.ReadLine();
-            var matched = _booknote.Search(pattern);
+            Matched = _booknote.Search(_pattern);
             Console.WriteLine("Found records: ");
-            foreach (var (i, booknoteRecord) in matched)
+            foreach (var (i, booknoteRecord) in Matched)
             {
                 Console.WriteLine("{0} : {1}", i, booknoteRecord);
             }

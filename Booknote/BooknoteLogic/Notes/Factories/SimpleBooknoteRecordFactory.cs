@@ -1,11 +1,10 @@
 using System;
 using Attributes;
-using BooknoteLogic.Notes;
 
-namespace BooknoteLogic.Factories
+namespace BooknoteLogic.Notes.Factories
 {
     [ContainerElement]
-    public class SimpleBooknoteRecordFactory : IBooknoteRecordFactory
+    public class SimpleBooknoteRecordFactory : IFactory<IBooknoteRecord>
     {
         public IBooknoteRecord CreateRecord()
         {
@@ -14,7 +13,7 @@ namespace BooknoteLogic.Factories
             return new SimpleBooknoteRecord(data);
         }
 
-        public string GeCreatorName()
+        public string GetCreatorName()
         {
             return "SimpleRecord";
         }

@@ -7,11 +7,11 @@ namespace BooknoteLogic
     [ContainerElement]
     public class CommandProducer
     {
-        private readonly Dictionary<string,IBaseCommand> _commands = new Dictionary<string, IBaseCommand>();
+        private readonly Dictionary<string,IFactory<IBaseCommand>> _commands = new Dictionary<string, IFactory<IBaseCommand>>();
 
-        public CommandProducer (List<IBaseCommand> commands)
+        public CommandProducer (List<IFactory<IBaseCommand>> commands)
         {
-            commands.ForEach(x=>_commands.Add(x.NameToString(), x));
+            commands.ForEach(x=>_commands.Add(x.GetCreatorName(), x));
         }
 
         public IEnumerable<string> GetAvailableCommands()
@@ -21,7 +21,7 @@ namespace BooknoteLogic
 
         public IBaseCommand GetCommand(string type)
         {
-            return _commands[type];
+            return _commands[type].CreateRecord();
         }
     }
 }

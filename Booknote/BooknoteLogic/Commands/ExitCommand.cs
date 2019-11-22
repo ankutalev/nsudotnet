@@ -1,47 +1,30 @@
 using System;
-using System.Linq;
-using Attributes;
 
 namespace BooknoteLogic.Commands
 {
-    [ContainerElement]
     public class ExitCommand : IBaseCommand
     {
-        private readonly IBaseCommand sc_;
+        private readonly bool _isExit;
+        private readonly IBaseCommand _sc;
 
-        public ExitCommand(SerializeCommand sc)
+        public ExitCommand(bool isExit, IBaseCommand sc)
         {
-            sc_ = sc;
-        }
-
-        public string NameToString()
-        {
-            return "Exit";
+            _isExit = isExit;
+            _sc = sc;
         }
 
         public void Execute()
         {
-            var answers = new[] {"y", "n"};
-
-            var readInput = new Func<string, string>(message =>
+            if (!_isExit)
             {
-                string userAnswer;
-                do
-                {
-                    Console.WriteLine(message + " y/n");
-                    userAnswer = Console.ReadLine();
-                } while (!answers.Contains(userAnswer));
-
-                return userAnswer;
-            });
-
-            var isExitReallyNeeded = readInput("Are you sure?");
-            if (isExitReallyNeeded == "n")
                 return;
+            }
 
-            var isSaveNeeded = readInput("Save book?");
-            if (isSaveNeeded == "y")
-                sc_.Execute();
+            if (_sc is null)
+            {
+                _sc.Execute();
+            }
+
             Console.WriteLine("Bye!");
             Environment.Exit(0);
         }
