@@ -1,12 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
     <PropertyGroup>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>netcoreapp3.0</TargetFramework>
+        <UseWPF>true</UseWPF>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Attributes\Attributes.csproj" />
       <ProjectReference Include="..\BooknoteLogic\BooknoteLogic.csproj" />
+      <ProjectReference Include="..\Container\Container.csproj" />
     </ItemGroup>
 
 </Project>
