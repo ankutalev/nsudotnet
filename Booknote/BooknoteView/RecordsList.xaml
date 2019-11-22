@@ -1,0 +1,14 @@
+<UserControl x:Class="BooknoteView.RecordsList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+    >
+    <DockPanel  LastChildFill="True">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top">
+            <Label Content = "List of notes: " Background="Gray" ></Label>
+        </ScrollViewer>
+        <Label Background = "Aqua"></Label>
+    </DockPanel>
+</UserControl>

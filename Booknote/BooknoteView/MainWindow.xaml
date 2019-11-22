@@ -1,5 +1,6 @@
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:booknoteView="clr-namespace:BooknoteView"
         Width="800"
         Height="600"
         MinHeight="600"
@@ -7,17 +8,10 @@
         Title="Booknote View"
         x:Class="BooknoteView.MainWindow">
 
-    <!--   <Canvas> -->
-    <!--   <ToolBar Width="120" Height="20" Canvas.Left="0" Canvas.Top="0" /> -->
-    <!-- </Canvas> -->
-
-
-    <DockPanel Background="Orange" LastChildFill="True">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" DockPanel.Dock="Left">
-            <UniformGrid Name="Commands"
-                         HorizontalAlignment="Left"
-                         Background="#A905FF" />
-        </ScrollViewer>
-        <TextBox Height="25" Width="Auto" />
+    <DockPanel LastChildFill="True">
+        <UniformGrid Name="Commands"
+                     HorizontalAlignment="Left"
+                     Background="#A905FF" />
+        <booknoteView:RecordsList />
     </DockPanel>
 </Window>
