@@ -9,7 +9,6 @@
         <Label Content = "List of notes: " Background="Gray"  DockPanel.Dock = "Top"></Label>
         <ScrollViewer VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top">
             <StackPanel Name="Records" Orientation="Vertical">
-                
             </StackPanel>
         </ScrollViewer>
         <Label Background = "Aqua"></Label>

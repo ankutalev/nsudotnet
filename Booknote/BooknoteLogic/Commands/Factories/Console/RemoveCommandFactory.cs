@@ -16,7 +16,7 @@ namespace BooknoteLogic.Commands.Factories.Console
         {
             System.Console.WriteLine("Which record delete? Type index");
             var index = System.Console.ReadLine();
-            return new RemoveCommand(_booknote,index);
+            return new RemoveCommand(_booknote, index);
         }
 
         public string GetCreatorName()

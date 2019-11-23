@@ -14,19 +14,16 @@ namespace BooknoteView
             InitializeComponent();
             UpdateRecords();
         }
-        
+
         public void UpdateRecords()
         {
             Console.WriteLine("PANEL UPDATED");
             var list = _booknote.GetAllRecords();
             Records.Children.Clear();
-            for (var index = 0; index < list.Count; index++)
+            foreach (var record in list)
             {
-//                Records
-                var record = list[index];
-                Console.WriteLine(record);
-
-                Records.Children.Add(new Label() { Content = record.ToString()});
+                var rb = new RadioButton {GroupName = "Records", Content = record.ToString()};
+                Records.Children.Add(rb);
             }
             InvalidateVisual();
         }
