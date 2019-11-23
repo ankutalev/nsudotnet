@@ -9,20 +9,27 @@ namespace BooknoteView.CommandsCreation
     [ContainerElement]
     public class UiCommandProducer : ICommandProducer
     {
-        private readonly Dictionary<string,IFactory<IBaseCommand>> _commands = new Dictionary<string, IFactory<IBaseCommand>>();
+        private readonly Dictionary<string, IFactory<IBaseCommand>> _commands =
+            new Dictionary<string, IFactory<IBaseCommand>>();
 
-        public UiCommandProducer (List<IFactory<IBaseCommand>> commands)
+        public UiCommandProducer(List<IFactory<IBaseCommand>> commands)
         {
             foreach (var factory in commands)
             {
                 var factoryName = factory.GetCreatorName();
                 if (factoryName.StartsWith("UI"))
-                    _commands.Add(factoryName,factory);
+                    _commands.Add(factoryName, factory);
             }
         }
+
         public IEnumerable<string> GetAvailableCommands()
         {
             return _commands.Keys;
+        }
+
+        public IFactory<IBaseCommand> GetFactory(string type)
+        {
+            return _commands[type];
         }
 
         public IBaseCommand GetCommand(string type)

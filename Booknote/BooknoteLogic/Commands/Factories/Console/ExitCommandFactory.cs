@@ -30,7 +30,7 @@ namespace BooknoteLogic.Commands.Factories.Console
                 return userAnswer;
             });
 
-            bool isExitNeed = readInput("Are you sure?") == "n";
+            bool isExitNeed = readInput("Are you sure?") == "y";
             var isSaveNeeded = readInput("Save book?") == "y";
             return new ExitCommand(isExitNeed, isSaveNeeded ? sc_.CreateRecord() : null);
         }

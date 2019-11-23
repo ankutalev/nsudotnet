@@ -8,10 +8,10 @@
         Title="Booknote View"
         x:Class="BooknoteView.MainWindow">
 
-    <DockPanel LastChildFill="True">
+    <DockPanel Name="MainDockPanel" LastChildFill="True">
         <UniformGrid Name="Commands"
                      HorizontalAlignment="Left"
                      Background="#A905FF" />
-        <booknoteView:RecordsList />
+        <!-- <booknoteView:RecordsList /> -->
     </DockPanel>
 </Window>

@@ -1,23 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BooknoteLogic;
-using BooknoteLogic.Producers;
+using BooknoteLogic.Exceptions;
 using BooknoteView.CommandsCreation;
-using BooknoteView.CommandsView;
-using Microsoft.Win32;
 
 namespace BooknoteView
 {
@@ -29,34 +17,44 @@ namespace BooknoteView
         public MainWindow()
         {
             InitializeComponent();
-            MyInitializeComponent();   
+            MyInitializeComponent();
         }
 
         private void MyInitializeComponent()
         {
             var cont = new Container.Container(new List<string> {"BooknoteLogic", "BooknoteView"});
-            var producer =  cont.Resolve<UiCommandProducer>();
+            var producer = cont.Resolve<UiCommandProducer>();
             var commands = producer.GetAvailableCommands();
             Commands.Columns = 1;
             var enumerable = commands as string[] ?? commands.ToArray();
             Commands.Rows = enumerable.Length;
+            var recordsList = new RecordsList(cont.Resolve<Booknote>());
             foreach (var command in enumerable)
             {
+                //todo i think it's bad inteface design
+                var factory = producer.GetFactory(command);
                 Console.WriteLine(command);
                 var commandButton = new Button {Content = command};
-                commandButton.Click += onClick;
+
+                commandButton.Click += (obj, args) =>
+                {
+                    try
+                    {
+                        factory.CreateRecord().Execute();
+                    }
+                    catch (BooknoteLogicException ex)
+                    {
+                        MessageBox.Show(ex.Message,
+                            "Error during command execution",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                    recordsList.UpdateRecords();
+                };
                 Commands.Children.Add(commandButton);
             }
-        }
 
-        private void onClick(object sender, RoutedEventArgs args)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if(openFileDialog.ShowDialog() == true)
-            {
-                var Text = File.ReadAllText(openFileDialog.FileName);
-            }
+            MainDockPanel.Children.Add(recordsList);
         }
-
     }
 }

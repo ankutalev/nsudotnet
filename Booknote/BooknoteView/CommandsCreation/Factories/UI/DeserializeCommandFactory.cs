@@ -6,7 +6,7 @@ using Microsoft.Win32;
 namespace BooknoteView.CommandsCreation.Factories.UI
 {
     [ContainerElement]
-    public class DeserializeCommandFactory : IFactory<IBaseCommand>
+    public class DeserializeCommandFactory : IFactory<IBaseCommand> 
     {
         private readonly Booknote _booknote;
         public DeserializeCommandFactory(Booknote booknote)
@@ -17,7 +17,9 @@ namespace BooknoteView.CommandsCreation.Factories.UI
         public IBaseCommand CreateRecord()
         {
             var openFileDialog = new OpenFileDialog();
-            return openFileDialog.ShowDialog() == true ? new DeserializeCommand(_booknote,openFileDialog.FileName) : null;
+            if (openFileDialog.ShowDialog() ==true)
+                return new DeserializeCommand(_booknote,openFileDialog.FileName);
+            return new NopeCommand();
         }
 
         public string GetCreatorName()
