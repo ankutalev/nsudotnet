@@ -10,10 +10,15 @@ namespace Container
 {
     public class Container
     {
-        private const string LogicModule = "BooknoteLogic";
+        private readonly List<string> _modules;
         private readonly HashSet<Type> _foundedByResolving = new HashSet<Type>();
         private readonly Dictionary<Type, object> _alreadyCreated = new Dictionary<Type, object>();
         private List<Type> _markedTypes;
+
+        public Container(List<string> modules)
+        {
+            _modules = modules;
+        }
 
         public T Resolve<T>()
         {
@@ -31,10 +36,9 @@ namespace Container
 
             if (_markedTypes == null)
             {
-                var logicAssembly = Assembly.Load(LogicModule);
-                _markedTypes = (from type in logicAssembly.GetTypes()
-                    where Attribute.IsDefined(type, typeof(ContainerElement))
-                    select type).ToList();
+                var types = Enumerable.Empty<Type>();
+                types = _modules.Select(Assembly.Load).Aggregate(types, (current, logicAssembly) => current.Concat(from type in logicAssembly.GetTypes() where Attribute.IsDefined(type, typeof(ContainerElement)) select type));
+                _markedTypes = types.ToList();
             }
 
             var ctor = GetConstructor(t);

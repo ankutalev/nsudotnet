@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Attributes;
+using BooknoteLogic.Producers;
 
 namespace BooknoteLogic
 {
     [ContainerElement] 
     public class CommandProcessor
     {
-        private readonly CommandProducer _commandProducer;
+        private readonly ICommandProducer _commandProducer;
 
-        public CommandProcessor(CommandProducer commandProducer)
+        public CommandProcessor(CommandConsoleProducer commandProducer)
         {
             _commandProducer = commandProducer;
         }

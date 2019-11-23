@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BooknoteLogic;
+using BooknoteLogic.Producers;
+using BooknoteView.CommandsCreation;
 using BooknoteView.CommandsView;
 using Microsoft.Win32;
 
@@ -31,14 +34,15 @@ namespace BooknoteView
 
         private void MyInitializeComponent()
         {
-            var cont = new Container.Container();
-            var producer =  cont.Resolve<CommandProducer>();
+            var cont = new Container.Container(new List<string> {"BooknoteLogic", "BooknoteView"});
+            var producer =  cont.Resolve<UiCommandProducer>();
             var commands = producer.GetAvailableCommands();
             Commands.Columns = 1;
             var enumerable = commands as string[] ?? commands.ToArray();
-            Commands.Rows = enumerable.Count();
+            Commands.Rows = enumerable.Length;
             foreach (var command in enumerable)
             {
+                Console.WriteLine(command);
                 var commandButton = new Button {Content = command};
                 commandButton.Click += onClick;
                 Commands.Children.Add(commandButton);

@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 using Attributes;
 using BooknoteLogic.Commands;
 
-namespace BooknoteLogic
+namespace BooknoteLogic.Producers
 {
     [ContainerElement]
-    public class CommandProducer
+    public class CommandConsoleProducer : ICommandProducer
     {
         private readonly Dictionary<string,IFactory<IBaseCommand>> _commands = new Dictionary<string, IFactory<IBaseCommand>>();
 
-        public CommandProducer (List<IFactory<IBaseCommand>> commands)
+        public CommandConsoleProducer (List<IFactory<IBaseCommand>> commands)
         {
             commands.ForEach(x=>_commands.Add(x.GetCreatorName(), x));
         }

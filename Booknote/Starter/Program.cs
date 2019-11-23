@@ -1,4 +1,5 @@
-﻿using BooknoteLogic;
+﻿using System.Collections.Generic;
+using BooknoteLogic;
 
 namespace Starter
 {
@@ -6,7 +7,7 @@ namespace Starter
     {
         static void Main(string[] args)
         {
-            var cont = new Container.Container();
+            var cont = new Container.Container(new List<string> {"BooknoteLogic"});
             var processor =  cont.Resolve<CommandProcessor>();
             processor.Process();
         }

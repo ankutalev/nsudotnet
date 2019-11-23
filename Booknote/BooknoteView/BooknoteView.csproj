@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Container\Container.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CommandsCreation\Factories" />
+    </ItemGroup>
+
 </Project>
