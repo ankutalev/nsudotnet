@@ -40,7 +40,7 @@ namespace BooknoteView
                 {
                     try
                     {
-                        factory.CreateRecord().Execute();
+                        factory.CreateProduct().Execute();
                     }
                     catch (BooknoteLogicException ex)
                     {

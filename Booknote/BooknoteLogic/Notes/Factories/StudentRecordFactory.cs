@@ -6,7 +6,7 @@ namespace BooknoteLogic.Notes.Factories
     [ContainerElement]
     public class StudentRecordFactory : IFactory<IBooknoteRecord>
     {
-        public IBooknoteRecord CreateRecord()
+        public IBooknoteRecord CreateProduct()
         {
             Console.WriteLine("Write name!");
             var name = Console.ReadLine();

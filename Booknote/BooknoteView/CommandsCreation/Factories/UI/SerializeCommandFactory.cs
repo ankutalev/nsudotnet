@@ -15,7 +15,7 @@ namespace BooknoteView.CommandsCreation.Factories.UI
             _booknote = booknote;
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             var openFileDialog = new SaveFileDialog();
             if (openFileDialog.ShowDialog() == true)

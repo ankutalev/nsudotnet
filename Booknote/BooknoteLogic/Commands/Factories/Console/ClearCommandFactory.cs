@@ -11,7 +11,7 @@ namespace BooknoteLogic.Commands.Factories.Console
         {
             _booknote = booknote;
         }
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             return new ClearCommand(_booknote);
         }

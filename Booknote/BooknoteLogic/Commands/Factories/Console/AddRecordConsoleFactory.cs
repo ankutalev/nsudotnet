@@ -19,7 +19,7 @@ namespace BooknoteLogic.Commands.Factories.Console
             recordTypes.ForEach(record => _records.Add(record.GetCreatorName(), record));
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             System.Console.WriteLine("Available records type :");
             foreach (var recordKey in _records.Keys)
@@ -32,7 +32,7 @@ namespace BooknoteLogic.Commands.Factories.Console
             try
             {
                 var creator = _records[System.Console.ReadLine()];
-                record = creator.CreateRecord();
+                record = creator.CreateProduct();
             }
             catch (KeyNotFoundException)
             {

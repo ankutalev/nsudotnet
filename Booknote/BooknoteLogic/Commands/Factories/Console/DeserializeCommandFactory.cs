@@ -11,7 +11,7 @@ namespace BooknoteLogic.Commands.Factories.Console
             _booknote = booknote;
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             System.Console.WriteLine("Enter path to save file");
             var path = System.Console.ReadLine();

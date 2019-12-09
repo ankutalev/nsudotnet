@@ -18,7 +18,7 @@ namespace BooknoteView.CommandsCreation.Factories.UI
             sc_ = sc;
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             var exitMessage = MessageBox.Show("Are you sure?",
                 "Confirm exit",
@@ -34,7 +34,7 @@ namespace BooknoteView.CommandsCreation.Factories.UI
                                  MessageBoxImage.Question) == MessageBoxResult.Yes;
             }
 
-            return new ExitCommand(isExitNeed, isSaveNeed ? sc_.CreateRecord() : null);
+            return new ExitCommand(isExitNeed, isSaveNeed ? sc_.CreateProduct() : null);
         }
 
         public string GetCreatorName()

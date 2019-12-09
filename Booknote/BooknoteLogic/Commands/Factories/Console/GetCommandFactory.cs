@@ -12,7 +12,7 @@ namespace BooknoteLogic.Commands.Factories.Console
             _booknote = booknote;
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             System.Console.WriteLine("Which record show? Type index");
             var index = System.Console.ReadLine();

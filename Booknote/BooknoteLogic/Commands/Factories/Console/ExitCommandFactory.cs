@@ -14,7 +14,7 @@ namespace BooknoteLogic.Commands.Factories.Console
             sc_ = sc;
         }
 
-        public IBaseCommand CreateRecord()
+        public IBaseCommand CreateProduct()
         {
             var answers = new[] {"y", "n"};
 
@@ -32,7 +32,7 @@ namespace BooknoteLogic.Commands.Factories.Console
 
             bool isExitNeed = readInput("Are you sure?") == "y";
             var isSaveNeeded = readInput("Save book?") == "y";
-            return new ExitCommand(isExitNeed, isSaveNeeded ? sc_.CreateRecord() : null);
+            return new ExitCommand(isExitNeed, isSaveNeeded ? sc_.CreateProduct() : null);
         }
 
         public string GetCreatorName()

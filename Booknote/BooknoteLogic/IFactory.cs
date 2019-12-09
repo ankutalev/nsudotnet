@@ -3,7 +3,7 @@ namespace BooknoteLogic
 {
     public interface IFactory<out T>
     {
-        T CreateRecord();
+        T CreateProduct();
         string GetCreatorName();
     }
 }

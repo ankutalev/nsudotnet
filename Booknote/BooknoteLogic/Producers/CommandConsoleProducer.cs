@@ -22,7 +22,7 @@ namespace BooknoteLogic.Producers
 
         public IBaseCommand GetCommand(string type)
         {
-            return _commands[type].CreateRecord();
+            return _commands[type].CreateProduct();
         }
     }
 }
