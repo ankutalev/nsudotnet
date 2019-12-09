@@ -14,28 +14,23 @@ namespace BooknoteView
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(RecordsList rl, UiCommandProducer producer)
         {
             InitializeComponent();
-            MyInitializeComponent();
+            MyInitializeComponent(rl, producer);
         }
 
-        private void MyInitializeComponent()
+        private void MyInitializeComponent(RecordsList recordsList, UiCommandProducer producer)
         {
-            var cont = new Container.Container(new List<string> {"BooknoteLogic", "BooknoteView"});
-            var producer = cont.Resolve<UiCommandProducer>();
             var commands = producer.GetAvailableCommands();
             Commands.Columns = 1;
             var enumerable = commands as string[] ?? commands.ToArray();
             Commands.Rows = enumerable.Length;
-            var recordsList = new RecordsList(cont.Resolve<Booknote>());
             foreach (var command in enumerable)
             {
                 //todo i think it's bad inteface design
                 var factory = producer.GetFactory(command);
-                Console.WriteLine(command);
                 var commandButton = new Button {Content = command};
-
                 commandButton.Click += (obj, args) =>
                 {
                     try
@@ -53,7 +48,6 @@ namespace BooknoteView
                 };
                 Commands.Children.Add(commandButton);
             }
-
             MainDockPanel.Children.Add(recordsList);
         }
     }

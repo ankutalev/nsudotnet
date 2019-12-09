@@ -2,12 +2,12 @@ using System;
 
 namespace BooknoteLogic.Commands
 {
-    public class RemoveCommand : IBaseCommand
+    public class DeleteCommand : IBaseCommand
     {
         private readonly Booknote _booknote;
         private readonly string _index;
 
-        public RemoveCommand(Booknote booknote, string index)
+        public DeleteCommand(Booknote booknote, string index)
         {
             _booknote = booknote;
             _index = index;

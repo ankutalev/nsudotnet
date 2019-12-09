@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
+using BooknoteView.CommandsCreation;
 
 namespace BooknoteView
 {
@@ -13,5 +9,14 @@ namespace BooknoteView
     /// </summary>
     public partial class App : Application
     {
+        private void StartApp(object sender, StartupEventArgs e)
+        {
+            var container = new Container.Container(new List<string> {"BooknoteLogic", "BooknoteView"});
+            var prod = container.Resolve<UiCommandProducer>();
+            var rl = container.Resolve<RecordsList>();
+            new MainWindow(rl,prod).Show();
+        }
     }
+    
+   
 }
