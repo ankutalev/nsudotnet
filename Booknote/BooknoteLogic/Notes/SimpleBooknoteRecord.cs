@@ -1,4 +1,3 @@
-using System;
 using Attributes;
 
 namespace BooknoteLogic.Notes

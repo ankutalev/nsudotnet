@@ -17,7 +17,7 @@ namespace BooknoteView.CommandsCreation.Factories.UI
         }
         public IBaseCommand CreateProduct()
         {
-            var deleted = _rl.getChoosen();
+            var deleted = _rl.GetChoosen();
             return deleted != null ? (IBaseCommand) new DeleteCommand(_booknote, deleted) : new NopeCommand();
         }
 

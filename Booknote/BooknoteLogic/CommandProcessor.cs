@@ -43,6 +43,7 @@ namespace BooknoteLogic
                     Console.WriteLine(e);
                 }
             }
+            // ReSharper disable once FunctionNeverReturns
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace BooknoteView.CommandsCreation.Factories.UI.Notes
 {
-    public partial class CreationForm : Window
+    public partial class CreationForm
     {
         private readonly List<TextBox> _inputs;
 

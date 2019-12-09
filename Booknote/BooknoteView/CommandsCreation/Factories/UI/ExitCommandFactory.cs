@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Windows;
 using Attributes;
 using BooknoteLogic;
@@ -11,11 +9,11 @@ namespace BooknoteView.CommandsCreation.Factories.UI
     [ContainerElement]
     public class ExitCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly SerializeCommandFactory sc_;
+        private readonly SerializeCommandFactory _sc;
 
         public ExitCommandFactory(SerializeCommandFactory sc)
         {
-            sc_ = sc;
+            _sc = sc;
         }
 
         public IBaseCommand CreateProduct()
@@ -34,7 +32,7 @@ namespace BooknoteView.CommandsCreation.Factories.UI
                                  MessageBoxImage.Question) == MessageBoxResult.Yes;
             }
 
-            return new ExitCommand(isExitNeed, isSaveNeed ? sc_.CreateProduct() : null);
+            return new ExitCommand(isExitNeed, isSaveNeed ? _sc.CreateProduct() : null);
         }
 
         public string GetCreatorName()

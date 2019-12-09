@@ -7,11 +7,11 @@ namespace BooknoteLogic.Commands.Factories.Console
     [ContainerElement]
     public class ExitCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly SerializeCommandFactory sc_;
+        private readonly SerializeCommandFactory _sc;
 
         public ExitCommandFactory(SerializeCommandFactory sc)
         {
-            sc_ = sc;
+            _sc = sc;
         }
 
         public IBaseCommand CreateProduct()
@@ -32,7 +32,7 @@ namespace BooknoteLogic.Commands.Factories.Console
 
             bool isExitNeed = readInput("Are you sure?") == "y";
             var isSaveNeeded = readInput("Save book?") == "y";
-            return new ExitCommand(isExitNeed, isSaveNeeded ? sc_.CreateProduct() : null);
+            return new ExitCommand(isExitNeed, isSaveNeeded ? _sc.CreateProduct() : null);
         }
 
         public string GetCreatorName()

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace BooknoteView.CommandsCreation.Factories.UI
 {
-    public partial class RecordTypeChooser : Window
+    public partial class RecordTypeChooser
     {
         private string _choosenName;
 

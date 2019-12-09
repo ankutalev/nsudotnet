@@ -7,7 +7,7 @@ using BooknoteLogic;
 namespace BooknoteView
 {
     [ContainerElement]
-    public partial class RecordsList : UserControl
+    public partial class RecordsList
     {
         private readonly Booknote _booknote;
         private List<RadioButton> _buttons;
@@ -39,9 +39,9 @@ namespace BooknoteView
             InvalidateVisual();
         }
 
-        public string getChoosen()
+        public string GetChoosen()
         {
-            for (int i = 0; i < _buttons.Count; i++)
+            for (var i = 0; i < _buttons.Count; i++)
             {
                 if (_buttons[i].IsChecked==true)
                     return i.ToString();

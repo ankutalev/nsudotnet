@@ -13,6 +13,12 @@
 
     <ItemGroup>
       <Folder Include="CommandsCreation\Factories" />
+      <Folder Include="Images" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\roflan.jpg" />
+      <Resource Include="Images\roflan.jpg" />
     </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ namespace Starter
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             var cont = new Container.Container(new List<string> {"BooknoteLogic"});
             var processor =  cont.Resolve<CommandProcessor>();

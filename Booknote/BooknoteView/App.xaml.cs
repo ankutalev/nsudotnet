@@ -7,7 +7,7 @@ namespace BooknoteView
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private void StartApp(object sender, StartupEventArgs e)
         {
