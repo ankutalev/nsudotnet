@@ -1,13 +1,14 @@
 using System;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
 {
     public class SerializeCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
-        private readonly string _filename;
+       [NotNull] private readonly Booknote _booknote;
+       [NotNull] private readonly string _filename;
 
-        public SerializeCommand(Booknote booknote,string filename)
+        public SerializeCommand([NotNull]Booknote booknote,[NotNull]string filename)
         {
             _booknote = booknote;
             _filename = filename;

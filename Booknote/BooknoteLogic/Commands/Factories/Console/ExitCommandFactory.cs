@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands.Factories.Console
 {
     [ContainerElement]
     public class ExitCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly SerializeCommandFactory _sc;
+        [NotNull]private readonly SerializeCommandFactory _sc;
 
-        public ExitCommandFactory(SerializeCommandFactory sc)
+        public ExitCommandFactory([NotNull]SerializeCommandFactory sc)
         {
             _sc = sc;
         }
@@ -30,7 +31,7 @@ namespace BooknoteLogic.Commands.Factories.Console
                 return userAnswer;
             });
 
-            bool isExitNeed = readInput("Are you sure?") == "y";
+            var isExitNeed = readInput("Are you sure?") == "y";
             var isSaveNeeded = readInput("Save book?") == "y";
             return new ExitCommand(isExitNeed, isSaveNeeded ? _sc.CreateProduct() : null);
         }

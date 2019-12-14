@@ -1,13 +1,14 @@
 using System;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
 {
     public class GetCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
-        private readonly string _index;
+        [NotNull]private readonly Booknote _booknote;
+        [NotNull]private readonly string _index;
 
-        public GetCommand(Booknote booknote, string index)
+        public GetCommand([NotNull]Booknote booknote, [NotNull]string index)
         {
             _booknote = booknote;
             _index = index;

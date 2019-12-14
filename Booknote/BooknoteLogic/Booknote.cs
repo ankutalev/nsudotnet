@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Attributes;
 using BooknoteLogic.Exceptions;
 using BooknoteLogic.Notes;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace BooknoteLogic
@@ -11,9 +13,9 @@ namespace BooknoteLogic
     [ContainerElement]
     public class Booknote
     {
-        private List<IBooknoteRecord> _records = new List<IBooknoteRecord>();
+        [NotNull]private List<IBooknoteRecord> _records = new List<IBooknoteRecord>();
 
-        public void Deserialize(string path)
+        public void Deserialize([NotNull]string path)
         {
             try
             {
@@ -22,6 +24,7 @@ namespace BooknoteLogic
                 //bad practise
                 var serialized = tw.ReadToEnd();
                 var deserializedList = JsonConvert.DeserializeObject<List<IBooknoteRecord>>(serialized, settings);
+                Debug.Assert(deserializedList != null, nameof(deserializedList) + " != null");
                 _records = deserializedList;
             }
             catch (Exception)
@@ -30,7 +33,7 @@ namespace BooknoteLogic
             }
         }
 
-        public void Serialize(string path)
+        public void Serialize([NotNull]string path)
         {
             try
             {
@@ -46,6 +49,7 @@ namespace BooknoteLogic
             }
         }
 
+        [NotNull]
         public List<IBooknoteRecord> GetAllRecords()
         {
             return _records;
@@ -78,16 +82,17 @@ namespace BooknoteLogic
             _records.Clear();
         }
 
+        [NotNull]
         public Dictionary<int, IBooknoteRecord> Search(string pattern)
         {
             var matched = new Dictionary<int, IBooknoteRecord>();
             for (var index = 0; index < _records.Count; index++)
             {
                 var record = _records[index];
+                Debug.Assert(record != null, nameof(record) + " != null");
                 if (record.Match(pattern))
                     matched[index] = record;
             }
-
             return matched;
         }
     }

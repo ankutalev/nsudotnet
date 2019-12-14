@@ -1,4 +1,5 @@
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Notes
 {
@@ -8,17 +9,17 @@ namespace BooknoteLogic.Notes
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         //for json.net
-        public string Name;
+       [NotNull] public string Name;
 
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public string LastName;
+       [NotNull] public string LastName;
 
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public string SpecialSigns;
+        [NotNull]public string SpecialSigns;
 
-        public WantedRecord(string name, string lastName, string specialSigns)
+        public WantedRecord([NotNull]string name, [NotNull]string lastName, [NotNull]string specialSigns)
         {
             Name = name;
             LastName = lastName;
@@ -32,6 +33,8 @@ namespace BooknoteLogic.Notes
 
         public bool Match(string searchPattern)
         {
+            if (searchPattern == null)
+                return true;
             return Name.Contains(searchPattern) || LastName.Contains(searchPattern) || SpecialSigns.Contains(searchPattern);
         }
     }

@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
+
 namespace BooknoteLogic
 
 {
     public interface IFactory<out T>
     {
-        T CreateProduct();
-        string GetCreatorName();
+        [NotNull] T CreateProduct();
+        [NotNull]string GetCreatorName();
     }
 }

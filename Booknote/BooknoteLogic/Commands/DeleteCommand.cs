@@ -1,13 +1,14 @@
 using System;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
 {
     public class DeleteCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
+       [NotNull] private readonly Booknote _booknote;
         private readonly string _index;
 
-        public DeleteCommand(Booknote booknote, string index)
+        public DeleteCommand([NotNull]Booknote booknote, string index)
         {
             _booknote = booknote;
             _index = index;

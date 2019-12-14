@@ -1,11 +1,14 @@
+
+using JetBrains.Annotations;
+
 namespace BooknoteLogic.Commands
 {
     public class DeserializeCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
-        private readonly string _path;
+        [NotNull]private readonly Booknote _booknote;
+        [NotNull]private readonly string _path;
 
-        public DeserializeCommand(Booknote booknote, string path)
+        public DeserializeCommand([NotNull]Booknote booknote, [NotNull]string path)
         {
             _booknote = booknote;
             _path = path;

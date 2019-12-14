@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using BooknoteLogic.Notes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
 {
     public class ListCommand : IBaseCommand
     {
-        private readonly List<IBooknoteRecord> _records;
+       [NotNull] private readonly List<IBooknoteRecord> _records;
 
-        public ListCommand(List<IBooknoteRecord> records)
+        public ListCommand([NotNull]List<IBooknoteRecord> records)
         {
             _records = records;
         }

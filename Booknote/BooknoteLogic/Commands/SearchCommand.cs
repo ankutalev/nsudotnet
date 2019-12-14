@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using BooknoteLogic.Notes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
 {
     public class SearchCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
-        private readonly string _pattern;
+        [NotNull]private readonly Booknote _booknote;
+        [NotNull]private readonly string _pattern;
          public Dictionary<int, IBooknoteRecord> Matched { get; private set; }
 
-        public SearchCommand(Booknote booknote, string pattern)
+        public SearchCommand([NotNull]Booknote booknote, [NotNull]string pattern)
         {
             _booknote = booknote;
             _pattern = pattern;

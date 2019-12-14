@@ -1,13 +1,15 @@
+using System;
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands.Factories.Console
 {
     [ContainerElement]
     public class GetCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly Booknote _booknote;
+        [NotNull]private readonly Booknote _booknote;
 
-        public GetCommandFactory(Booknote booknote)
+        public GetCommandFactory([NotNull]Booknote booknote)
         {
             _booknote = booknote;
         }
@@ -16,7 +18,7 @@ namespace BooknoteLogic.Commands.Factories.Console
         {
             System.Console.WriteLine("Which record show? Type index");
             var index = System.Console.ReadLine();
-            return new GetCommand(_booknote, index);
+            return new GetCommand(_booknote, index ?? throw new InvalidOperationException("Console read null"));
         }
 
         public string GetCreatorName()

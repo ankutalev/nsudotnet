@@ -10,7 +10,7 @@ namespace BooknoteLogic.Notes.Factories
         {
             Console.WriteLine("Type something!");
             var data = Console.ReadLine();
-            return new SimpleBooknoteRecord(data);
+            return new SimpleBooknoteRecord(data ?? throw new InvalidOperationException("Console input null!"));
         }
 
         public string GetCreatorName()

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using Attributes;
 using BooknoteLogic.Producers;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic
 {
     [ContainerElement] 
     public class CommandProcessor
     {
-        private readonly ICommandProducer _commandProducer;
+        [NotNull]private readonly ICommandProducer _commandProducer;
 
-        public CommandProcessor(CommandConsoleProducer commandProducer)
+        public CommandProcessor([NotNull]CommandConsoleProducer commandProducer)
         {
             _commandProducer = commandProducer;
         }

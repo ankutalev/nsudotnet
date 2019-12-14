@@ -1,10 +1,12 @@
+using JetBrains.Annotations;
+
 namespace BooknoteLogic.Commands
 {
     public class ClearCommand : IBaseCommand
     {
-        private readonly Booknote _booknote;
+       [NotNull] private readonly Booknote _booknote;
 
-        public ClearCommand(Booknote booknote)
+        public ClearCommand([NotNull]Booknote booknote)
         {
             _booknote = booknote;
         }

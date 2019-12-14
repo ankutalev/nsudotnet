@@ -12,6 +12,10 @@ namespace BooknoteLogic.Notes.Factories
             var name = Console.ReadLine();
             Console.WriteLine("Write phone!");
             var phone = Console.ReadLine();
+            if (name == null || phone == null)
+            {
+                throw new InvalidOperationException("Console input null!");
+            }
             return new StudentRecord(name,phone);
         }
 

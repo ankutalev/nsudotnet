@@ -1,20 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Attributes;
+using JetBrains.Annotations;
 
 namespace Container
 {
     public class Container
     {
         private readonly List<string> _modules;
-        private readonly HashSet<Type> _foundedByResolving = new HashSet<Type>();
-        private readonly Dictionary<Type, object> _alreadyCreated = new Dictionary<Type, object>();
+        [NotNull]private readonly HashSet<Type> _foundedByResolving = new HashSet<Type>();
+        [NotNull]private readonly Dictionary<Type, object> _alreadyCreated = new Dictionary<Type, object>();
         private List<Type> _markedTypes;
 
-        public Container(List<string> modules)
+        public Container([NotNull]List<string> modules)
         {
             _modules = modules;
         }
@@ -28,7 +30,7 @@ namespace Container
             return (T) obj;
         }
 
-        private object ConstructByType(Type t)
+        private object ConstructByType([NotNull] Type t)
         {
             if (_alreadyCreated.TryGetValue(t, out var o))
                 return o;
@@ -36,11 +38,23 @@ namespace Container
             if (_markedTypes == null)
             {
                 var types = Enumerable.Empty<Type>();
-                types = _modules.Select(Assembly.Load).Aggregate(types, (current, logicAssembly) => current.Concat(from type in logicAssembly.GetTypes() where Attribute.IsDefined(type, typeof(ContainerElement)) select type));
-                _markedTypes = types.ToList();
+                Debug.Assert(_modules != null, nameof(_modules) + " != null");
+                
+                types = _modules.Select(Assembly.Load).Aggregate(types, (current, logicAssembly) =>
+                {
+                    if (logicAssembly != null)
+                        return (current ?? throw new ArgumentNullException(nameof(current))).Concat(
+                            from type in logicAssembly.GetTypes()
+                            where Attribute.IsDefined(type, typeof(ContainerElement))
+                            select type);
+                    return null;
+                });
+                Debug.Assert(types != null, nameof(types) + " != null");
+                _markedTypes = (types).ToList();
             }
 
             var ctor = GetConstructor(t);
+            Debug.Assert(ctor != null, nameof(ctor) + " != null");
             var ctorParams = ctor.GetParameters();
             _foundedByResolving.Add(t);
             ResolvingDependencies(ctorParams.ToList());
@@ -55,10 +69,11 @@ namespace Container
             return obj;
         }
 
-        private void ResolvingDependencies(List<ParameterInfo> dependencies)
+        private void ResolvingDependencies([NotNull] List<ParameterInfo> dependencies)
         {
             dependencies.ForEach(dependency =>
             {
+                Debug.Assert(dependency != null, nameof(dependency) + " != null");
                 if (_foundedByResolving.Contains(dependency.ParameterType))
                 {
                     _foundedByResolving.Clear();
@@ -77,9 +92,11 @@ namespace Container
             });
         }
 
-        private void ConstructGenericList(Type genericType)
+        private void ConstructGenericList([NotNull]Type genericType)
         {
             var instance = (IList) Activator.CreateInstance(genericType);
+            Debug.Assert(instance != null, nameof(instance) + " != null");
+            Debug.Assert(genericType.GenericTypeArguments != null, "genericType.GenericTypeArguments != null");
             var parentType = genericType.GenericTypeArguments[0];
             var childrenTypes = (from type in _markedTypes
                 where type.GetInterfaces().Contains(parentType)
@@ -87,7 +104,7 @@ namespace Container
 
             childrenTypes.ForEach(childType =>
             {
-                if (_alreadyCreated.TryGetValue(childType, out var child))
+                if (_alreadyCreated.TryGetValue(childType ?? throw new ArgumentNullException(nameof(childType)), out var child))
                 {
                     instance.Add(child);
                 }
@@ -101,8 +118,9 @@ namespace Container
             _alreadyCreated[genericType] = instance;
         }
 
-        private ConstructorInfo GetConstructor(Type type)
+        private ConstructorInfo GetConstructor([NotNull] Type type)
         {
+            Debug.Assert(_markedTypes != null, nameof(_markedTypes) + " != null");
             if (!_markedTypes.Contains(type))
                 throw new ArgumentException($"Type {type} hasn't marked by {typeof(ContainerElement)} attribute");
             var ctors = type.GetConstructors();

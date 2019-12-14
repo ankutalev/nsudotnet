@@ -15,16 +15,10 @@ namespace BooknoteLogic.Commands
 
         public void Execute()
         {
-            if (!_isExit)
+            if (!_isExit || _sc == null)
             {
                 return;
             }
-
-            if (_sc is null)
-            {
-                _sc.Execute();
-            }
-
             Console.WriteLine("Bye!");
             Environment.Exit(0);
         }

@@ -1,13 +1,15 @@
+using System;
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands.Factories.Console
 {
     [ContainerElement]
     public class SerializeCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly Booknote _booknote;
+        [NotNull]private readonly Booknote _booknote;
 
-        public SerializeCommandFactory(Booknote booknote)
+        public SerializeCommandFactory([NotNull]Booknote booknote)
         {
             _booknote = booknote;
         }
@@ -16,7 +18,7 @@ namespace BooknoteLogic.Commands.Factories.Console
         {
             System.Console.WriteLine("Enter filename to serialize!");
             var fileName = System.Console.ReadLine();
-            return new SerializeCommand(_booknote,fileName);
+            return new SerializeCommand(_booknote,fileName ?? throw new InvalidOperationException("Console input null"));
         }
 
         public string GetCreatorName()

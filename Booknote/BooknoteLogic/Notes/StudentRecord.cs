@@ -1,4 +1,5 @@
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Notes
 {
@@ -8,13 +9,13 @@ namespace BooknoteLogic.Notes
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         //for json.net
-        public string Name;
+      [NotNull]  public string Name;
 
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public string Phone;
+        [NotNull]public string Phone;
 
-        public StudentRecord(string name, string phone)
+        public StudentRecord([NotNull]string name, [NotNull]string phone)
         {
             Name = name;
             Phone = phone;
@@ -27,6 +28,8 @@ namespace BooknoteLogic.Notes
 
         public bool Match(string searchPattern)
         {
+            if (searchPattern == null)
+                return true;
             return Name.Contains(searchPattern) || Phone.Contains(searchPattern);
         }
     }

@@ -1,13 +1,14 @@
 using Attributes;
+using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands.Factories.Console
 {
     [ContainerElement]
     public class RemoveCommandFactory : IFactory<IBaseCommand>
     {
-        private readonly Booknote _booknote;
+        [NotNull]private readonly Booknote _booknote;
 
-        public RemoveCommandFactory(Booknote booknote)
+        public RemoveCommandFactory([NotNull]Booknote booknote)
         {
             _booknote = booknote;
         }
