@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starter", "Starter\Starter.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooknoteView", "BooknoteView\BooknoteView.csproj", "{2444BF3E-7780-40E3-BC67-B82724650586}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8F6A7756-74A3-4BA7-8C31-A5B1302C3FD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2444BF3E-7780-40E3-BC67-B82724650586}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2444BF3E-7780-40E3-BC67-B82724650586}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2444BF3E-7780-40E3-BC67-B82724650586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F6A7756-74A3-4BA7-8C31-A5B1302C3FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F6A7756-74A3-4BA7-8C31-A5B1302C3FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F6A7756-74A3-4BA7-8C31-A5B1302C3FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F6A7756-74A3-4BA7-8C31-A5B1302C3FD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
