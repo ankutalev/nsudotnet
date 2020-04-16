@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using JetBrains.Annotations;
 
 namespace BooknoteLogic.Commands
@@ -13,11 +14,14 @@ namespace BooknoteLogic.Commands
             _booknote = booknote;
             _filename = filename;
         }
-        public void Execute()
+        public  void Execute()
         {
             try
             {
+                Console.WriteLine("starts serialize!");
                 _booknote.Serialize(_filename);
+                Console.WriteLine("ends! serialize!");
+
             }
             catch (Exception e)
             {

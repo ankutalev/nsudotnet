@@ -3,6 +3,9 @@ using BooknoteLogic;
 
 namespace Starter
 {
+class Kukarek {
+    public void kkokoko() {}
+}
     class Program
     {
         public static void Main()

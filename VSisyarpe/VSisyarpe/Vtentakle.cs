@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.IO;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using VkNet;
@@ -29,7 +29,12 @@ namespace VSisyarpe {
                 ApplicationId = AppId,
                 Login = email,
                 Password = password,
-                Settings = Settings.Friends
+                Settings = Settings.All,
+                TwoFactorAuthorization = () =>
+                        {
+                            Console.WriteLine("Enter Code:");
+                            return Console.ReadLine();
+                        }
             });
         }
 
@@ -37,15 +42,15 @@ namespace VSisyarpe {
         }
 
         private void ViewFriends() {
-            var filter = new FriendsGetParams {Fields = ProfileFields.Nickname};
-            filter.Fields = ProfileFields.LastName;
-            filter.Fields = ProfileFields.FirstName;
-            _friends = _vk.Friends.Get(filter);
-            foreach (var friend in _friends) {
-                Console.Write(friend.FirstName + " ");
-                Console.WriteLine(friend.LastName);
-                friend.FirstName = friend.FirstName.Replace('ё', 'е');
-                friend.LastName = friend.LastName.Replace('ё', 'е');
+            var filter = new AudioGetParams() { Offset = 0, Count = 40};
+            var x = _vk.Audio.Get(filter);
+            foreach (var audio in x) {
+                Console.WriteLine(audio.Title);
+                _vk.Audio.Download(audio,@"c:\users\fix\desktop\a");
+                var downloaded = Directory.GetFiles(@"c:\users\fix\desktop\a");
+                Console.WriteLine($"DOWNLOAD{downloaded[0]}");
+                File.Move(downloaded[0], $@"c:\users\fix\desktop\\a\\{audio.Title}.mp3");
+                Console.WriteLine( $"{audio.Artist} {audio.Title}");
             }
         }
 
@@ -65,48 +70,9 @@ namespace VSisyarpe {
                 }
 
                 p.ViewFriends();
-                p.WriteMessages();
             }
             catch (VkApiAuthorizationException e) {
                 Console.WriteLine("Probably, invalid credentials " + e.Message);
-            }
-            catch (Exception e) {
-                Console.WriteLine("Network error" + e.Message);
-            }
-        }
-
-        private void WriteMessages() {
-            while (true) {
-                Console.WriteLine("Input user name or type \"exit\" to close program : ");
-                var fullname = Console.ReadLine();
-                if (fullname == "exit")
-                    Environment.Exit(0);
-
-                fullname = fullname.Replace('ё', 'е');
-                var splitted = fullname.Split();
-
-                if (splitted.Length != 2) {
-                    Console.WriteLine("Incorrect user name! ");
-                }
-
-                var fpart = splitted[0];
-                var spart = splitted[1];
-                User requiredFriend;
-                try {
-                    requiredFriend = _friends.First(f =>
-                        f.FirstName == fpart && f.LastName == spart || (f.FirstName == spart && f.LastName == fpart));
-                }
-                catch (Exception) {
-                    Console.WriteLine("Friend doesnt exists!");
-                    continue;
-                }
-
-                Console.WriteLine("Enter message!");
-                var message = Console.ReadLine();
-                var messageParams = new MessagesSendParams {
-                    Message = message, UserId = requiredFriend.Id, RandomId = _random.Next()
-                };
-                _vk.Messages.Send(messageParams);
             }
         }
 

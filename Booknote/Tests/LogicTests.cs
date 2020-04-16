@@ -32,7 +32,6 @@ namespace Tests
                 addCommand = _producer.GetCommand("TestAddRecord");
                 addCommand.Execute();
             }
-
             Assert.AreEqual(_booknote.GetAllRecords().Count, Iterations + 1);
         }
 

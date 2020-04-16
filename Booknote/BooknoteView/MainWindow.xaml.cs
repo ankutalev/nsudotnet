@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using BooknoteLogic.Exceptions;
@@ -25,14 +26,14 @@ namespace BooknoteView
             Commands.Rows = enumerable.Length;
             foreach (var command in enumerable)
             {
-                //todo i think it's bad inteface design
                 var factory = producer.GetFactory(command);
                 var commandButton = new Button {Content = command};
-                commandButton.Click += (obj, args) =>
+                commandButton.Click += async (obj, args) =>
                 {
                     try
                     {
-                        factory.CreateProduct().Execute();
+                        var c = factory.CreateProduct();
+                        await Task.Run(()=>c.Execute());
                     }
                     catch (BooknoteLogicException ex)
                     {
