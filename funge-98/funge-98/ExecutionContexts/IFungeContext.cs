@@ -6,15 +6,19 @@ namespace funge_98.ExecutionContexts
     public abstract class FungeContext
     {
         private readonly HashSet<char> _supportedCommands;
-        
+
         protected FungeContext(HashSet<char> supportedCommands1)
         {
             _supportedCommands = supportedCommands1;
         }
-        
-        bool IsSupported(ICommand command)
+
+
+        public bool IsSupported(Command command)
         {
-            return _supportedCommands.Contains(command.GetName());
+            return _supportedCommands.Contains(command.Name);
         }
+
+        public abstract bool GetStackTopValues(int count, out int[] values);
+        public abstract void PushToStack(int value);
     }
 }

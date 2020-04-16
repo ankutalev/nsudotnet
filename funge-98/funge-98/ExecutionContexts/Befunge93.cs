@@ -4,6 +4,7 @@ namespace funge_98.ExecutionContexts
 {
     public class Befunge93 : FungeContext
     {
+        private readonly Stack<int> _values = new Stack<int>();
         private static readonly HashSet<char> SupportedCommands = new HashSet<char>
         {
             '+',
@@ -48,5 +49,26 @@ namespace funge_98.ExecutionContexts
         {
         }
 
+
+        public override bool GetStackTopValues(int count, out int[] values)
+        {
+            if (_values.Count < count)
+            {
+                values = null;
+                _values.Clear();
+                return false;
+            }
+            values = new int[count];
+            
+            for (var i = 0; i < count; i++)
+            {
+                values[i] = _values.Pop();
+            }
+            
+            return true;
+        }
+
+        public override void PushToStack(int value) => _values.Push(value);
+        
     }
 }
